@@ -41,18 +41,17 @@ class session: public std::enable_shared_from_this<session> {
             std::cerr << "Ошибка подключения к базе данных: " << PQerrorMessage(conn) << std::endl;
             PQfinish(conn);
         }
-        PGresult* res;
-        if (j["type"] == "register") {
+        // if (j["type"] == "register") {
             char format[1024];
             std::cout << "bd_query1" << std::endl;
-            std::string login = j["login"];
+            std::string login = j["username"];
             std::string password = j["password"];
 
             std::cout << "bd_query2" << std::endl;
             
-            snprintf(format, 1024, "INSERT INTO users (login, password, token) VALUES (\'%s\', \'%s\', \'%s\');", login.c_str(), password.c_str(), "88005553535");
-            res = PQexec(conn, format);
-        }
+            snprintf(format, 1024, "INSERT INTO users (username, password, token) VALUES (\'%s\', \'%s\', \'%s\');", login.c_str(), password.c_str(), "88005553535");
+            PGresult* res = PQexec(conn, format);
+        // }
 
         // else if (j["type"] == "login") {
 
